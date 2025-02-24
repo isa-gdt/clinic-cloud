@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Src\Auth\Infraestructure\Models\Task;
-use Src\Auth\Infraestructure\Models\User;
+use Src\Auth\Infrastructure\Models\User;
+use Src\ToDoList\Infrastructure\Model\Task;
 
 class UserSeeder extends Seeder
 {

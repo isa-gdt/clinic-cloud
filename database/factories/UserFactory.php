@@ -5,10 +5,10 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Src\Auth\Infraestructure\Models\User;
+use Src\Auth\Infrastructure\Models\User;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Src\Auth\Infraestructure\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\Src\Auth\Infrastructure\Models\User>
  */
 class UserFactory extends Factory
 {
