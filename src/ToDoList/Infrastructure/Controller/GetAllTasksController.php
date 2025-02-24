@@ -13,7 +13,7 @@ class GetAllTasksController
 {
     public function __construct(
         private readonly GetAllTasksUseCase $getAllTasksUseCase,
-        private readonly TaskCollectionTransformer $taskCollectionTrasnformer
+        private readonly TaskCollectionTransformer $taskCollectionTransformer
     )
     {
     }
@@ -22,6 +22,6 @@ class GetAllTasksController
     {
         $tasks = $this->getAllTasksUseCase->execute();
 
-        return new JsonResponse($this->taskCollectionTrasnformer->transform($tasks));
+        return new JsonResponse($this->taskCollectionTransformer->transform($tasks));
     }
 }
