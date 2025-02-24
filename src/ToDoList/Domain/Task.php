@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace Src\ToDoList\Domain;
 
+use Src\Auth\Domain\User;
+
 class Task
 {
     public function __construct(
         private ?int $id,
-        private string $createdBy,
-        private ?string $assignedTo,
+        private User $createdBy,
+        private ?User $assignedTo,
         private string $text,
         private string $status,
-        private string $createdAt,
-        private string $updatedAt,
+        private ?string $createdAt,
+        private ?string $updatedAt,
     )
     {
     }
@@ -23,12 +25,12 @@ class Task
         return $this->id;
     }
 
-    public function createdBy(): string
+    public function createdBy(): User
     {
         return $this->createdBy;
     }
 
-    public function assignedTo(): ?string
+    public function assignedTo(): ?User
     {
         return $this->assignedTo;
     }

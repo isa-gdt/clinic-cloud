@@ -13,8 +13,8 @@ class TaskCollectionTransformer
         return array_map(function ($task) {
             return [
                 'id' => $task->id(),
-                'created_by' => $task->createdBy(),
-                'assigned_to' => $task->assignedTo(),
+                'created_by' => $task->createdBy()->name(),
+                'assigned_to' => $task->assignedTo()?->name(),
                 'text' => $task->text(),
                 'status' => $task->status(),
                 'created_at' => $task->createdAt(),

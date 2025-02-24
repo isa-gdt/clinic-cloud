@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\ToDoList\Infrastructure\Transformer;
 
 use PHPUnit\Framework\TestCase;
-use Src\ToDoList\Domain\TaskCollection;
 use Src\ToDoList\Infrastructure\Transformer\TaskCollectionTransformer;
 use Tests\ToDoList\Domain\MotherObject\TaskCollectionMotherObject;
 
@@ -24,8 +23,8 @@ class TaskCollectionTransformerTest extends TestCase
         $this->assertEquals([
             [
                 'id' => 1,
-                'created_by' => 'Creator',
-                'assigned_to' => 'Assignee',
+                'created_by' => 'UserName',
+                'assigned_to' => 'UserName',
                 'text' => 'Text',
                 'status' => 'Status',
                 'created_at' => '14/12/2024',

@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('text');
             $table->enum('status', ['pending', 'in_progress', 'completed'])
                 ->default('pending');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->index(['created_by','status']);
         });

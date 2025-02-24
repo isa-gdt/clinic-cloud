@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\ToDoList\Application;
+namespace Tests\ToDoList\Application\UseCase;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;

@@ -3,6 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\JsonResponse;
+use Src\Common\Application\Exception\ValidationException;
+use Src\Common\Infrastructure\Exception\PersistenceException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,8 +14,19 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->validateCsrfTokens(
+            except: ['/*']
+        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (ValidationException $e) {
+            return new JsonResponse([
+                'error' => $e->errors(),
+            ], $e->getCode());
+        });
+        $exceptions->render(function (PersistenceException $e) {
+           return new JsonResponse([
+               'error' => $e->getMessage(),
+           ], $e->getCode());
+        });
     })->create();

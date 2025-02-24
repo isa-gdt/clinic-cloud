@@ -6,6 +6,7 @@ namespace Tests\ToDoList\Domain;
 
 use PHPUnit\Framework\TestCase;
 use Src\ToDoList\Domain\TaskCollection;
+use Tests\Auth\MotherObject\UserMotherObject;
 use Tests\ToDoList\Domain\MotherObject\TaskCollectionMotherObject;
 
 class TaskCollectionTest extends TestCase
@@ -15,8 +16,8 @@ class TaskCollectionTest extends TestCase
         $taskCollection = TaskCollectionMotherObject::buildDefault(1);
 
         $this->assertEquals(1, $taskCollection->collection()[0]->id());
-        $this->assertEquals('Creator', $taskCollection->collection()[0]->createdBy());
-        $this->assertEquals('Assignee', $taskCollection->collection()[0]->assignedTo());
+        $this->assertEquals(UserMotherObject::buildDefault(), $taskCollection->collection()[0]->createdBy());
+        $this->assertEquals(UserMotherObject::buildDefault(), $taskCollection->collection()[0]->assignedTo());
         $this->assertEquals('Text', $taskCollection->collection()[0]->text());
         $this->assertEquals('Status', $taskCollection->collection()[0]->status());
         $this->assertEquals('14/12/2024', $taskCollection->collection()[0]->createdAt());
@@ -25,11 +26,18 @@ class TaskCollectionTest extends TestCase
 
     public function testBuildFromRaw(): void
     {
+        $user = [
+            'id' => 1,
+            'name' => 'UserName',
+            'email' => 'user@example.com',
+            'password' => 'password',
+        ];
+
         $task = [
             [
                 'id' => 1,
-                'created_by' => ['name' => 'Creator'],
-                'assigned_to' => ['name' => 'Assignee'],
+                'created_by' => $user,
+                'assigned_to' => $user,
                 'text' => 'Text',
                 'status' => 'Status',
                 'created_at' => '14/12/2024',
@@ -42,8 +50,8 @@ class TaskCollectionTest extends TestCase
         $this->assertInstanceOf(TaskCollection::class, $taskCollection);
 
         $this->assertEquals(1, $taskCollection->collection()[0]->id());
-        $this->assertEquals('Creator', $taskCollection->collection()[0]->createdBy());
-        $this->assertEquals('Assignee', $taskCollection->collection()[0]->assignedTo());
+        $this->assertEquals(UserMotherObject::buildDefault(), $taskCollection->collection()[0]->createdBy());
+        $this->assertEquals(UserMotherObject::buildDefault(), $taskCollection->collection()[0]->assignedTo());
         $this->assertEquals('Text', $taskCollection->collection()[0]->text());
         $this->assertEquals('Status', $taskCollection->collection()[0]->status());
         $this->assertEquals('14/12/2024', $taskCollection->collection()[0]->createdAt());
