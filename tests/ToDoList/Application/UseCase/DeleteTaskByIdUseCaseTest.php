@@ -47,4 +47,5 @@ class DeleteTaskByIdUseCaseTest extends TestCase
         //Then
         $this->assertTrue(true);
     }
+
 }

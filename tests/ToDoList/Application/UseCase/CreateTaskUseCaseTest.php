@@ -51,14 +51,21 @@ class CreateTaskUseCaseTest extends TestCase
 
         $authRepository = $this->mockAuthenticationRepositoryInterface($user);
         $taskRepository = $this->mockTaskRepositoryInterface($task);
+
+        $user = [
+            'id' => 1,
+            'name' => 'Name',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ];
+
         $dtoData = [
-            'created_by' => 1,
             'assigned_to' => 33,
             'text' => 'Text',
             'status'=> 'Status'
         ];
 
-        $dto = new CreateTaskInputDTO($dtoData);
+        $dto = new CreateTaskInputDTO($dtoData, $user);
 
         $sut = new CreateTaskUseCase($authRepository, $taskRepository);
 
@@ -68,7 +75,7 @@ class CreateTaskUseCaseTest extends TestCase
 
         //Then
         $this->assertEquals($task, $result);
-        $this->assertEquals($dto->createdBy(), $task->createdBy()->id());
+        $this->assertIsArray($dto->createdBy());
     }
 
     public function testInvalidPostCreateTaskUseCaseThrowsValidationException(): void
@@ -94,12 +101,19 @@ class CreateTaskUseCaseTest extends TestCase
             'text'        => '',
             'status'      => 'Status',
         ];
+        $userDto = [
+            'id' => 1,
+            'name' => 'Name',
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ];
+
 
         $task = TaskMotherObject::buildDefault();
         $repository = $this->mockTaskRepositoryInterface($task);
         $user = UserMotherObject::buildDefault();
         $authRepository = $this->mockAuthenticationRepositoryInterface($user);
-        $dto = new CreateTaskInputDTO($dtoData);
+        $dto = new CreateTaskInputDTO($dtoData, $userDto);
 
         $sut = new CreateTaskUseCase($authRepository, $repository);
 

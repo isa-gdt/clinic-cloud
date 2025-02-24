@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\ToDoList\Infrastructure\Controller;
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Src\ToDoList\Application\UseCase\GetAllTasksUseCase;
@@ -57,8 +58,10 @@ class GetAllTasksControllerTest extends TestCase
             $this->mockTransformer($taskCollection, $transformedTasks)
         );
 
+        $request = Request::create('/tasks', 'GET');
+
         //When
-        $result = $sut->__invoke();
+        $result = $sut->__invoke($request);
 
         //Then
         $this->assertInstanceOf(JsonResponse::class, $result);

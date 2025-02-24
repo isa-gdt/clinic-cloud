@@ -16,20 +16,27 @@ class CreateTaskUseCase
 {
     public function __construct(
         private readonly AuthenticationRepositoryInterface $authenticationRepository,
-        private readonly TaskRepositoryInterface $taskRepository)
+        private readonly TaskRepositoryInterface           $taskRepository)
     {
     }
 
     public function execute(CreateTaskInputDTO $taskInputDTO): Task
     {
         $assignedTo = null;
-        if($taskInputDTO->assignedTo() !== null){
+        if ($taskInputDTO->assignedTo() !== null) {
             $assignedTo = $this->authenticationRepository->getUserById($taskInputDTO->assignedTo());
         }
 
+        $createdBy = new User (
+            id: $taskInputDTO->createdBy()['id'],
+            name: $taskInputDTO->createdBy()['name'],
+            email: $taskInputDTO->createdBy()['email'],
+            password: $taskInputDTO->createdBy()['password'],
+        );
+
         $task = new Task(
             id: null,
-            createdBy: new User(100,'a','b','c'),
+            createdBy: $createdBy,
             assignedTo: $assignedTo,
             text: $taskInputDTO->text(),
             status: $taskInputDTO->status(),

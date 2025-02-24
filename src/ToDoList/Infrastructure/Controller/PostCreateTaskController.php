@@ -22,15 +22,15 @@ class PostCreateTaskController
 
     public function __invoke(Request $request): JsonResponse
     {
+        $user = $request->get('authenticated_user');
+
         $data =[
-            //fixme: cambiar el created by cuando tenga la info del usuario logueado
-            'created_by' => 100,
             'assigned_to' => $request->get('assigned_to'),
             'text' => $request->get('text'),
             'status'=> $request->get('status')
         ];
 
-        $dto = new CreateTaskInputDTO($data);
+        $dto = new CreateTaskInputDTO($data, $user);
 
         $result = $this->postCreateTaskUseCase->execute($dto);
 

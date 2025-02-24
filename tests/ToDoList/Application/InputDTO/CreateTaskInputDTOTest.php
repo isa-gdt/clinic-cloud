@@ -16,13 +16,19 @@ class CreateTaskInputDTOTest extends TestCase
 
         //given
         $data = [];
+        $user = [
+            'id' => 1,
+            'name' => 'Name',
+            'email' => 'email@email.com',
+            'password' => 'password'
+        ];
 
         //Then
         $this->expectException(ValidationException::class);
 
         //When
         try {
-            new CreateTaskInputDTO($data);
+            new CreateTaskInputDTO($data, $user);
         } catch (\Exception $e) {
             $this->assertEquals($e->getMessage(), 'Validation Error');
             $this->assertEquals([

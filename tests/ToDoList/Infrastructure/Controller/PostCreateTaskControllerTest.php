@@ -6,8 +6,10 @@ namespace Tests\ToDoList\Infrastructure\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Src\ToDoList\Application\InputDTO\CreateTaskInputDTO;
 use Src\ToDoList\Application\UseCase\CreateTaskUseCase;
 use Src\ToDoList\Domain\Task;
 use Src\ToDoList\Infrastructure\Controller\PostCreateTaskController;
@@ -53,6 +55,14 @@ class PostCreateTaskControllerTest extends TestCase
             'updated_at' => '13/01/2025'
         ];
 
+        $user = [
+            'id' => 1,
+            'name' => 'Name',
+            'email' => 'email@email.com',
+            'password' => 'password'
+        ];
+
+
         $sut = new PostCreateTaskController(
             $this->mockUseCase($task),
             $this->mockTransformer($task, $transformedTask)
@@ -65,6 +75,7 @@ class PostCreateTaskControllerTest extends TestCase
         ];
 
         $request = Request::create('/tasks', 'POST', $data);
+        $request->merge(['authenticated_user' => $user]);
 
         //When
         $result = $sut->__invoke($request);

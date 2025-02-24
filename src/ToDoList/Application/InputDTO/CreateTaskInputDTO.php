@@ -10,15 +10,15 @@ use Src\Common\Application\Exception\ValidationException;
 
 class CreateTaskInputDTO
 {
-    private int $createdBy;
+    private array $createdBy;
     private ?int $assignedTo;
     private string $text;
     private string $status;
 
-    public function __construct(array $data)
+    public function __construct(array $data, array $user)
     {
         $this->validate($data);
-        $this->createdBy = $data['created_by'];
+        $this->createdBy = $user;
         $this->assignedTo = $data['assigned_to'] ?? null;
         $this->text = $data['text'];
         $this->status = $data['status'];
@@ -46,7 +46,7 @@ class CreateTaskInputDTO
         }
     }
 
-    public function createdBy(): int
+    public function createdBy(): array
     {
         return $this->createdBy;
     }
