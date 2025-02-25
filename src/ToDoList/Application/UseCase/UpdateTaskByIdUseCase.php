@@ -33,7 +33,7 @@ class UpdateTaskByIdUseCase
         }
 
         $dataFromDto = [
-            'assigned_to' => $assignedTo->id() ?? null,
+            'assigned_to' => $assignedTo?->id(),
             'text' => $updateTaskInputDTO->text() ?? null,
             'status' => $updateTaskInputDTO->status() ?? null,
         ];
