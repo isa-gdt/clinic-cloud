@@ -9,5 +9,4 @@ use Src\Auth\Domain\User;
 interface AuthenticationRepositoryInterface
 {
     public function getUserById(int $id): ?User;
-    public function getUserByEmail(string $email): ?User;
 }

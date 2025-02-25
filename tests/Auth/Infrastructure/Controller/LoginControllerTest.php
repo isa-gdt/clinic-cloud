@@ -37,7 +37,7 @@ class LoginControllerTest extends TestCase
 
         //Then
         $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertEquals(204, $result->getStatusCode());
+        $this->assertEquals(200, $result->getStatusCode());
         $decodedContent = json_decode($result->getContent(), true);
         $this->assertEquals($token, $decodedContent[0]);
     }

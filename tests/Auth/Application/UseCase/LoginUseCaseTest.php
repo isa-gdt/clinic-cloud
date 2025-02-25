@@ -9,7 +9,9 @@ use Mockery\Mock;
 use Src\Auth\Application\InputDTO\LoginInputDTO;
 use Src\Auth\Application\UseCase\LoginUseCase;
 use Src\Auth\Domain\Exception\InvalidCredentialsException;
+use Src\Auth\Infrastructure\Exception\TokenCreationException;
 use Tests\TestCase;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginUseCaseTest extends TestCase
@@ -52,9 +54,8 @@ class LoginUseCaseTest extends TestCase
 
         JWTAuth::shouldReceive('attempt')
             ->once()
-            ->with(['email' => 'test@test.com', 'password' => 'password'])
+            ->with($dataDto)
             ->andThrow(InvalidCredentialsException::class);
-
 
         $useCase = new LoginUseCase();
 
@@ -62,6 +63,31 @@ class LoginUseCaseTest extends TestCase
         $this->expectException(InvalidCredentialsException::class);
 
         // When
-        $result = $useCase->execute($dto);
+        $useCase->execute($dto);
+    }
+
+    public function testExecuteThrowsTokenCreationExceptionOnJwtError(): void
+    {
+        // Given
+        $dataDto = [
+            'email' => 'test@test.com',
+            'password' => 'password',
+        ];
+
+        $dto = new LoginInputDTO($dataDto);
+
+        JWTAuth::shouldReceive('attempt')
+            ->once()
+            ->with($dataDto)
+            ->andThrow(new JWTException('Error generating token'));
+
+        $useCase = new LoginUseCase();
+
+        // Then
+        $this->expectException(TokenCreationException::class);
+        $this->expectExceptionMessage('Error generating token');
+
+        // When
+        $useCase->execute($dto);
     }
 }

@@ -28,6 +28,6 @@ class LoginController
 
         $token = $this->loginUseCase->execute($dto);
 
-        return response()->json([$token], 204);
+        return response()->json([$token], 200);
     }
 }
