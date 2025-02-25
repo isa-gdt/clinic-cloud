@@ -2,7 +2,7 @@ class Auth {
     constructor() {
         console.log('[Auth] Constructor called');
         this.baseUrl = '/api';
-        
+
         // Intentar recuperar la sesión
         try {
             this.token = localStorage.getItem('token');
@@ -15,7 +15,7 @@ class Auth {
             this.token = null;
             this.user = null;
         }
-        
+
         // DOM Elements
         this.loginForm = document.getElementById('loginForm');
         this.loginContainer = document.getElementById('loginContainer');
@@ -29,7 +29,7 @@ class Auth {
 
         // Check authentication status
         this.checkAuth();
-        
+
         console.log('[Auth] Initialization complete');
     }
 
@@ -73,18 +73,6 @@ class Auth {
             console.log('[Auth] Login successful, setting up session');
             this.setAuth(token, { name: email });
             this.showTasksView();
-            
-            // Esperar un momento antes de cargar el script
-            //Probar a comentarlo a ver que pasa
-            setTimeout(() => {
-                if (!window.taskManager) {
-                    console.log('[Auth] Loading TaskManager after login');
-                    this.loadTasksScript();
-                } else {
-                    console.log('[Auth] TaskManager already exists, reloading tasks');
-                    window.taskManager.loadTasks();
-                }
-            }, 100);
 
         } catch (error) {
             console.error('[Auth] Login error:', error);
@@ -96,7 +84,7 @@ class Auth {
     loadTasksScript() {
         console.log('[Auth] Checking for tasks.js script');
         const existingScript = document.querySelector('script[src="js/tasks.js"]');
-        
+
         if (!existingScript) {
             console.log('[Auth] Loading tasks.js script');
             const script = document.createElement('script');
@@ -127,12 +115,12 @@ class Auth {
         localStorage.removeItem('user');
         this.token = null;
         this.user = null;
-        
+
         if (window.taskManager) {
             console.log('[Auth] Cleaning up TaskManager');
             window.taskManager = null;
         }
-        
+
         this.showLoginView();
     }
 
@@ -150,7 +138,7 @@ class Auth {
         if (this.token && this.user) {
             console.log('[Auth] Session found, showing tasks view');
             this.showTasksView();
-            
+
             // Esperar un momento antes de cargar el script
             setTimeout(() => {
                 if (!window.taskManager) {
