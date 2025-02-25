@@ -25,7 +25,7 @@ class TaskTransformerTest extends TestCase
             'created_by' => 'UserName',
             'assigned_to' => 'UserName',
             'text' => 'Text',
-            'status' => 'Status',
+            'status' => 'pending',
             'created_at' => '14/12/2024',
             'updated_at' => '13/01/2025'
         ], $result);

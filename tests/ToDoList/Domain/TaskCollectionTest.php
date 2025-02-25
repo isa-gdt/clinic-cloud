@@ -19,7 +19,7 @@ class TaskCollectionTest extends TestCase
         $this->assertEquals(UserMotherObject::buildDefault(), $taskCollection->collection()[0]->createdBy());
         $this->assertEquals(UserMotherObject::buildDefault(), $taskCollection->collection()[0]->assignedTo());
         $this->assertEquals('Text', $taskCollection->collection()[0]->text());
-        $this->assertEquals('Status', $taskCollection->collection()[0]->status());
+        $this->assertEquals('pending', $taskCollection->collection()[0]->status());
         $this->assertEquals('14/12/2024', $taskCollection->collection()[0]->createdAt());
         $this->assertEquals('13/01/2025', $taskCollection->collection()[0]->updatedAt());
     }

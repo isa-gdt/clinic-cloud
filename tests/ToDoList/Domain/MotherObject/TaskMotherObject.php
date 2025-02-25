@@ -15,7 +15,7 @@ class TaskMotherObject
         ?User $createdBy = null,
         ?User $assignedTo = null,
         ?string $text = 'Text',
-        ?string $status = 'Status',
+        ?string $status = 'pending',
         ?string $createdAt = '14/12/2024',
         ?string $updatedAt = '13/01/2025'
     ): Task

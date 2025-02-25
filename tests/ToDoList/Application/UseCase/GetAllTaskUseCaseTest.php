@@ -6,6 +6,7 @@ namespace Tests\ToDoList\Application\UseCase;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Src\ToDoList\Application\InputDTO\GetAllTasksInputDTO;
 use Src\ToDoList\Application\UseCase\GetAllTasksUseCase;
 use Src\ToDoList\Domain\Repository\TaskRepositoryInterface;
 use Src\ToDoList\Domain\TaskCollection;
@@ -29,10 +30,18 @@ class GetAllTaskUseCaseTest extends TestCase
         $taskCollection = TaskCollectionMotherObject::buildDefault(3);
         $repository = $this->mockTaskRepositoryInterface($taskCollection);
 
+        $dtoData = [
+            'limit' => 3,
+            'page' => 1,
+        ];
+
+        $dto = new GetAllTasksInputDTO($dtoData);
+
         $sut = new GetAllTasksUseCase($repository);
 
+
         //When
-        $result = $sut->execute();
+        $result = $sut->execute($dto);
 
         //Then
         $this->assertEquals($taskCollection, $result);

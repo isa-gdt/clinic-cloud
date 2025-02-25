@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
-use Src\Auth\Infrastructure\Models\User;
+use Src\Auth\Infrastructure\Model\User;
 
 class Task extends Model
 {

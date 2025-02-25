@@ -80,7 +80,6 @@ class CreateTaskUseCaseTest extends TestCase
 
     public function testInvalidPostCreateTaskUseCaseThrowsValidationException(): void
     {
-
         //Then
         $this->expectException(ValidationException::class);
 
@@ -118,6 +117,5 @@ class CreateTaskUseCaseTest extends TestCase
         $sut = new CreateTaskUseCase($authRepository, $repository);
 
         $sut->execute($dto);
-
     }
 }

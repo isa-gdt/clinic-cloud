@@ -17,7 +17,7 @@ class TaskTest extends TestCase
         $this->assertEquals(1,$task->id());
         $this->assertEquals(UserMotherObject::buildDefault(), $task->createdBy());
         $this->assertEquals(UserMotherObject::buildDefault(), $task->assignedTo());
-        $this->assertEquals('Status', $task->status());
+        $this->assertEquals('pending', $task->status());
         $this->assertEquals('14/12/2024', $task->createdAt());
         $this->assertEquals('13/01/2025', $task->updatedAt());
     }

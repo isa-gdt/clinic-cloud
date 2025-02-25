@@ -4,22 +4,37 @@ declare(strict_types=1);
 
 namespace Src\ToDoList\Application\UseCase;
 
+use Src\Auth\Domain\Repository\AuthenticationRepositoryInterface;
+use Src\Auth\Infrastructure\Repository\AuthenticationRepository;
 use Src\ToDoList\Application\InputDTO\UpdateTaskInputDTO;
+use Src\ToDoList\Domain\Exception\TaskNotFoundException;
 use Src\ToDoList\Domain\Repository\TaskRepositoryInterface;
 use Src\ToDoList\Domain\Task;
 
 class UpdateTaskByIdUseCase
 {
     public function __construct(
-        private readonly TaskRepositoryInterface $taskRepository
+        private readonly TaskRepositoryInterface $taskRepository,
+        private readonly AuthenticationRepositoryInterface $authenticationRepository,
     )
     {
     }
 
     public function execute(UpdateTaskInputDTO $updateTaskInputDTO): Task
     {
+        $task = $this->taskRepository->getById($updateTaskInputDTO->id());
+
+        if($task === null) {
+            throw new TaskNotFoundException();
+        }
+
+        $assignedTo = null;
+        if($updateTaskInputDTO->assignedTo() !== null) {
+            $assignedTo = $this->authenticationRepository->getUserById($updateTaskInputDTO->assignedTo());
+        }
+
         $dataFromDto = [
-            'assigned_to' => $updateTaskInputDTO->assignedTo() ?? null,
+            'assigned_to' => $assignedTo ?? null,
             'text' => $updateTaskInputDTO->text() ?? null,
             'status' => $updateTaskInputDTO->status() ?? null,
         ];
@@ -28,8 +43,7 @@ class UpdateTaskByIdUseCase
             return $value !== null;
         });
 
-
-        return $this->taskRepository->updateById($updateTaskInputDTO->id(), $dataToUpdate);
+        return $this->taskRepository->updateById($task->id(), $dataToUpdate);
 
     }
 }

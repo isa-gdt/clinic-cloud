@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\ToDoList\Domain;
 
 use PHPUnit\Framework\TestCase;
-use Tests\ToDoList\Domain\MotherObject\UserMotherObject;
+use Tests\Auth\MotherObject\UserMotherObject;
 
 class UserTest extends TestCase
 {
@@ -14,8 +14,8 @@ class UserTest extends TestCase
         $user = UserMotherObject::buildDefault();
 
         $this->assertEquals(1, $user->id());
-        $this->assertEquals('User', $user->name());
-        $this->assertEquals('email@example.com', $user->email());
+        $this->assertEquals('UserName', $user->name());
+        $this->assertEquals('user@example.com', $user->email());
         $this->assertEquals('password', $user->password());
     }
 }
