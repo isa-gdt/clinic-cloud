@@ -1,5 +1,5 @@
 DOCKER_COMPOSE = docker compose
-PHP = docker exec -it laravel-api php
+DOCKER_EXEC = docker exec -it laravel-api php
 .PHONY: tests
 .PHONY: last-tweets
 
@@ -13,10 +13,10 @@ build:
 	@$(DOCKER_COMPOSE) build
 
 install:
-	@$(PHP) composer install
+	@$(DOCKER_EXEC) composer install
 
 tests:
-	$(PHP) ./vendor/bin/phpunit ${args}
+	$(DOCKER_EXEC) ./vendor/bin/phpunit ${args}
 
 help:
 	@echo "Available commands:"

@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Src\Auth\Infrastructure\Models\User;
+use Src\Auth\Infrastructure\Model\User;
 use Src\ToDoList\Infrastructure\Model\Task;
 
 class UserSeeder extends Seeder
@@ -17,8 +17,9 @@ class UserSeeder extends Seeder
 
         User::factory()
             ->create([
-            'name' => 'Chandler Bing',
-            'email' => 'chandler@friends.com',
-        ]);
+                'id' => 99,
+                'name' => 'Chandler Bing',
+                'email' => 'chandler@friends.com',
+            ]);
     }
 }

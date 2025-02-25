@@ -6,7 +6,7 @@ namespace Database\Factories;
 
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Src\Auth\Infrastructure\Models\User;
+use Src\Auth\Infrastructure\Model\User;
 use Src\ToDoList\Infrastructure\Model\Task;
 
 class TaskFactory extends Factory

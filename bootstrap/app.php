@@ -9,6 +9,7 @@ use Src\Auth\Domain\Exception\InvalidCredentialsException;
 use Src\Auth\Infrastructure\Exception\TokenCreationException;
 use Src\Common\Application\Exception\ValidationException;
 use Src\Common\Infrastructure\Exception\PersistenceException;
+use Src\ToDoList\Domain\Exception\TaskNotFoundException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -39,6 +40,11 @@ return Application::configure(basePath: dirname(__DIR__))
             ], $e->getCode());
         });
         $exceptions->render(function (InvalidCredentialsException $e) {
+            return new JsonResponse([
+                'error' => $e->getMessage(),
+            ], $e->getCode());
+        });
+        $exceptions->render(function (TaskNotFoundException $e) {
             return new JsonResponse([
                 'error' => $e->getMessage(),
             ], $e->getCode());

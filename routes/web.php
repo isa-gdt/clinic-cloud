@@ -9,15 +9,18 @@ use Src\ToDoList\Infrastructure\Controller\PostCreateTaskController;
 use Src\ToDoList\Infrastructure\Controller\PutTaskByIdController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return response()->file(public_path('index.html'));
 });
 
-Route::post('/login',LoginController::class);
+Route::get('/login', function () {
+    return response()->file(public_path('index.html'));
+});
+
+Route::post('/api/login',LoginController::class);
 
 Route::middleware([JwtMiddleware::class])->group(function () {
-    Route::get('/tasks',GetAllTasksController::class);
-    Route::post('/tasks', PostCreateTaskController::class);
-    Route::delete('/tasks/{id}', DeleteTaskByIdController::class);
-    Route::put('/tasks/{id}', PutTaskByIdController::class);
+    Route::get('/api/tasks',GetAllTasksController::class);
+    Route::post('/api/tasks', PostCreateTaskController::class);
+    Route::delete('/api/tasks/{id}', DeleteTaskByIdController::class);
+    Route::put('/api/tasks/{id}', PutTaskByIdController::class);
 });
-
