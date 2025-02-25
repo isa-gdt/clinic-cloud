@@ -32,7 +32,7 @@ class UpdateTaskInputDTO
         ];
         $violations = Validator::make($data, [
             'id' => 'required|numeric',
-            'assigned_to' => 'nullable|numeric',
+            'assigned_to' => 'nullable|integer',
             'text' => 'nullable|string|max:255',
             'status' => 'nullable|string|in:pending,in_progress,completed',
         ], $messages);

@@ -111,6 +111,7 @@ class TaskRepository implements TaskRepositoryInterface
         try {
             $task = TaskModel::with(['createdBy', 'assignedTo'])->find($taskId);
             $task->update($data);
+            $task->refresh();
         } catch (\Exception $e) {
             throw new PersistenceException($e->getMessage());
         }
@@ -139,7 +140,7 @@ class TaskRepository implements TaskRepositoryInterface
             text: $task->text,
             status: $task->status,
             createdAt: $task->created_at->toDateTimeString(),
-            updatedAt: $task->created_at->toDateTimeString(),
+            updatedAt: $task->updated_at->toDateTimeString(),
         );
     }
 }

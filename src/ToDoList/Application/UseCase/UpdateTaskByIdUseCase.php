@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Src\ToDoList\Application\UseCase;
 
 use Src\Auth\Domain\Repository\AuthenticationRepositoryInterface;
-use Src\Auth\Infrastructure\Repository\AuthenticationRepository;
 use Src\ToDoList\Application\InputDTO\UpdateTaskInputDTO;
 use Src\ToDoList\Domain\Exception\TaskNotFoundException;
 use Src\ToDoList\Domain\Repository\TaskRepositoryInterface;
@@ -34,7 +33,7 @@ class UpdateTaskByIdUseCase
         }
 
         $dataFromDto = [
-            'assigned_to' => $assignedTo ?? null,
+            'assigned_to' => $assignedTo->id() ?? null,
             'text' => $updateTaskInputDTO->text() ?? null,
             'status' => $updateTaskInputDTO->status() ?? null,
         ];
