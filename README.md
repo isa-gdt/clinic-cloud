@@ -26,6 +26,13 @@ Install de dependencies
   make install
 ```
 
+#### Application URL & Credentials example
+
+[http://localhost:8080/login](http://localhost:8080/login)
+
+**Email:** chandler@friends.com  
+**Password:** password
+
 ## Database
 
 The database script is located in the `database.sql` file within the `database/` directory at the root of the project. Use this script to set up the database schema and seed initial data.
@@ -144,21 +151,27 @@ Following a Hexagonal Architecture organized by Bounded Contexts and Domain-Driv
 │           ├── Repository
 │           └── Transformer
 ```
+
+#### Repository
+The repository is an implementation of the Eloquent ORM. To keep it decoupled from the application, I have chosen to return a domain entity in the repository methods instead of the Eloquent model.
+
+The transformation from the Eloquent model to a domain entity could be improved by extracting it into a separate class or service.
+
 #### Error Handling
 Errors are handled globally in the bootstrap/app.php file. It listen for exceptions and return customized responses for each type of error, maintaining a consistent format for all error responses.
 
 #### Routes
 The backend exposes several RESTful API endpoints that can be used for managing tasks and users. The routes are protected by JWT authentication, ensuring that only authenticated users can access them.
 
-`GET /tasks – Retrieve all tasks`
+`GET /api/tasks – Retrieve all tasks`
 
-`POST /tasks – Create a new task`
+`POST /api/tasks – Create a new task`
 
-`PUT /tasks/{id} – Update a task`
+`PUT /api/tasks/{id} – Update a task`
 
-`DELETE /tasks/{id} – Delete a task`
+`DELETE /api/tasks/{id} – Delete a task`
 
-`POST /login – Authenticate and generate a JWT token`
+`POST /api/login – Authenticate and generate a JWT token`
 
 Example requests and responses for these endpoints can be found in the OpenAPI documentation located in the openapi.yaml file at the root of the project.
 
@@ -198,12 +211,14 @@ Run tests with coverage
   make tests
 ```
 
-## Next Steps
+## Next Steps and Potential improvements
 
 - Create value objects for the domain.
 - Improve testing. Add acceptance tests and mutant testing.
+- Decouple error handler from Laravel to make it more easily extensible and add unhandled exceptions.
 - Improve logging with a log handler that uses a standardized format for all logs.
 - Add cache layer.
 - As the frontend is currently quite simple. There is no functionality in the frontend or backend to get a task by ID, which is something that will have to be implemented in a more complete version of the application..
-
+- The login use case could be improved by extracting the JWT implementation into a separate service, making it more modular and easier to maintain.
+- The transformation from Eloquent models to domain entities could be improved by extracting it into a separate class or service. 
 
