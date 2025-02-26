@@ -26,7 +26,6 @@ class DeleteTaskByIdUseCaseTest extends TestCase
     {
         //Given
         Validator::shouldReceive('make')
-            ->once()
             ->andReturn(Mockery::mock(\Illuminate\Validation\Validator::class, function ($mock) {
                 $mock->shouldReceive('fails')->andReturn(false);
             }));

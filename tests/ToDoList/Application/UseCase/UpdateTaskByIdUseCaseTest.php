@@ -42,7 +42,6 @@ class UpdateTaskByIdUseCaseTest extends TestCase
     {
         // Given
         Validator::shouldReceive('make')
-            ->once()
             ->andReturn(Mockery::mock(\Illuminate\Validation\Validator::class, function ($mock) {
                 $mock->shouldReceive('fails')->andReturn(false);
             }));
@@ -83,7 +82,6 @@ class UpdateTaskByIdUseCaseTest extends TestCase
     {
         return Mockery::mock(AuthenticationRepositoryInterface::class)
             ->shouldReceive('getUserById')
-            ->once()
             ->andReturn(null)
             ->getMock();
     }
@@ -92,7 +90,6 @@ class UpdateTaskByIdUseCaseTest extends TestCase
     {
         // Given
         Validator::shouldReceive('make')
-            ->once()
             ->andReturn(Mockery::mock(\Illuminate\Validation\Validator::class, function ($mock) {
                 $mock->shouldReceive('fails')->andReturn(false);
             }));

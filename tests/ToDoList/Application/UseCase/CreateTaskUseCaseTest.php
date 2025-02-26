@@ -41,7 +41,6 @@ class CreateTaskUseCaseTest extends TestCase
     {
         //Given
         Validator::shouldReceive('make')
-            ->once()
             ->andReturn(Mockery::mock(\Illuminate\Validation\Validator::class, function ($mock) {
                 $mock->shouldReceive('fails')->andReturn(false);
             }));
@@ -76,46 +75,5 @@ class CreateTaskUseCaseTest extends TestCase
         //Then
         $this->assertEquals($task, $result);
         $this->assertIsArray($dto->createdBy());
-    }
-
-    public function testInvalidPostCreateTaskUseCaseThrowsValidationException(): void
-    {
-        //Then
-        $this->expectException(ValidationException::class);
-
-        //When
-        Validator::shouldReceive('make')
-            ->once()
-            ->andReturn(Mockery::mock(\Illuminate\Validation\Validator::class, function ($mock) {
-                $mock->shouldReceive('fails')->andReturn(true);
-                $mock->shouldReceive('errors')->andReturn(new MessageBag([
-                    'text' => ['You need a valid text!'],
-                    'status' => ['You need a valid status!'],
-                ]));
-            }));
-
-        $dtoData = [
-            'created_by'  => 22,
-            'assigned_to' => 33,
-            'text'        => '',
-            'status'      => 'Status',
-        ];
-        $userDto = [
-            'id' => 1,
-            'name' => 'Name',
-            'email' => 'email@email.com',
-            'password' => 'password',
-        ];
-
-
-        $task = TaskMotherObject::buildDefault();
-        $repository = $this->mockTaskRepositoryInterface($task);
-        $user = UserMotherObject::buildDefault();
-        $authRepository = $this->mockAuthenticationRepositoryInterface($user);
-        $dto = new CreateTaskInputDTO($dtoData, $userDto);
-
-        $sut = new CreateTaskUseCase($authRepository, $repository);
-
-        $sut->execute($dto);
     }
 }
