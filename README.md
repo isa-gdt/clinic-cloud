@@ -51,7 +51,7 @@ To run Laravel migrations, use the following command:
 
 The database has two main entities: tasks and users.
 
-#### tasks Entity
+#### tasks table
 Fields:
 
 `id:` Primary key, auto-incremented.
@@ -72,7 +72,7 @@ Indexes:
 
 `created_by` and `status`: Combined index
 
-#### users Entity
+#### users table
 Fields:
 
 `id: `Primary key, auto-incremented.
