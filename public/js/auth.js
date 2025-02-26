@@ -1,6 +1,5 @@
 class Auth {
     constructor() {
-        console.log('[Auth] Constructor called');
         this.baseUrl = '/api';
 
         // Intentar recuperar la sesión
@@ -8,8 +7,6 @@ class Auth {
             this.token = localStorage.getItem('token');
             const storedUser = localStorage.getItem('user');
             this.user = storedUser ? JSON.parse(storedUser) : null;
-            console.log('[Auth] Session check - Token exists:', !!this.token);
-            console.log('[Auth] Session check - User exists:', !!this.user);
         } catch (e) {
             console.error('[Auth] Error loading session:', e);
             this.token = null;
@@ -30,7 +27,6 @@ class Auth {
         // Check authentication status
         this.checkAuth();
 
-        console.log('[Auth] Initialization complete');
     }
 
     async handleLogin(e) {
@@ -38,7 +34,6 @@ class Auth {
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        console.log('[Auth] Login attempt for:', email);
 
         try {
             const loginData = {
@@ -46,7 +41,6 @@ class Auth {
                 password: password
             };
 
-            console.log('[Auth] Sending login request');
             const response = await fetch(`${this.baseUrl}/login`, {
                 method: 'POST',
                 headers: {
@@ -57,7 +51,6 @@ class Auth {
             });
 
             const data = await response.json();
-            console.log('[Auth] Login response status:', response.status);
 
             if (!response.ok) {
                 throw new Error(data.message || 'Login failed');
@@ -70,7 +63,6 @@ class Auth {
                 throw new Error('No token received from server');
             }
 
-            console.log('[Auth] Login successful, setting up session');
             this.setAuth(token, { name: email });
             this.showTasksView();
 
@@ -80,44 +72,35 @@ class Auth {
         }
     }
 
-    //Que hace esto?? comentarlo a ver que pasa
+    // Carga las tasks
     loadTasksScript() {
-        console.log('[Auth] Checking for tasks.js script');
         const existingScript = document.querySelector('script[src="js/tasks.js"]');
 
         if (!existingScript) {
-            console.log('[Auth] Loading tasks.js script');
             const script = document.createElement('script');
             script.src = 'js/tasks.js';
             script.onload = () => {
-                console.log('[Auth] tasks.js loaded successfully');
                 if (!window.taskManager) {
-                    console.log('[Auth] Creating new TaskManager instance');
                     window.taskManager = new TaskManager();
                 }
             };
             document.body.appendChild(script);
         } else {
-            console.log('[Auth] tasks.js already loaded');
             if (!window.taskManager) {
-                console.log('[Auth] Creating new TaskManager instance');
                 window.taskManager = new TaskManager();
             } else {
-                console.log('[Auth] Using existing TaskManager instance');
                 window.taskManager.loadTasks();
             }
         }
     }
 
     handleLogout() {
-        console.log('[Auth] Logging out');
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.token = null;
         this.user = null;
 
         if (window.taskManager) {
-            console.log('[Auth] Cleaning up TaskManager');
             window.taskManager = null;
         }
 
@@ -125,7 +108,6 @@ class Auth {
     }
 
     setAuth(token, user) {
-        console.log('[Auth] Setting auth data');
         this.token = token;
         this.user = user;
         localStorage.setItem('token', token);
@@ -134,20 +116,16 @@ class Auth {
     }
 
     checkAuth() {
-        console.log('[Auth] Checking auth status');
         if (this.token && this.user) {
-            console.log('[Auth] Session found, showing tasks view');
             this.showTasksView();
 
             // Esperar un momento antes de cargar el script
             setTimeout(() => {
                 if (!window.taskManager) {
-                    console.log('[Auth] Loading TaskManager after session check');
                     this.loadTasksScript();
                 }
             }, 100);
         } else {
-            console.log('[Auth] No session found, showing login view');
             this.showLoginView();
         }
     }
@@ -159,14 +137,12 @@ class Auth {
     }
 
     showLoginView() {
-        console.log('[Auth] Showing login view');
         this.loginContainer.classList.remove('hidden');
         this.tasksContainer.classList.add('hidden');
         this.loginForm.reset();
     }
 
     showTasksView() {
-        console.log('[Auth] Showing tasks view');
         this.loginContainer.classList.add('hidden');
         this.tasksContainer.classList.remove('hidden');
         this.updateUserInfo();

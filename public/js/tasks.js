@@ -1,7 +1,5 @@
 class TaskManager {
-    constructor() {
-        console.log('[TaskManager] Constructor called');
-        
+    constructor() {        
         if (window.taskManager) {
             console.warn('[TaskManager] Instance already exists!');
             return window.taskManager;
@@ -10,7 +8,7 @@ class TaskManager {
         this.baseUrl = '/api';
         this.submitCount = 0;
         this.currentPage = 1;
-        this.limit = 10;
+        this.limit = 4;
         this.hasMoreTasks = true;
         this.tasks = [];
         
@@ -26,25 +24,20 @@ class TaskManager {
         this.setupEventListeners();
         this.loadTasks();
         
-        console.log('[TaskManager] New instance created');
     }
 
     setupEventListeners() {
-        console.log('[TaskManager] Setting up event listeners');
         
         this.removeEventListeners();
         
         this.handleSubmit = this.handleTaskSubmit.bind(this);
         this.handleAdd = () => {
-            console.log('[TaskManager] Add button clicked');
             this.showTaskModal();
         };
         this.handleCancel = () => {
-            console.log('[TaskManager] Cancel button clicked');
             this.hideTaskModal();
         };
         this.handleLoadMore = () => {
-            console.log('[TaskManager] Load more clicked');
             this.loadMoreTasks();
         };
 
@@ -55,7 +48,6 @@ class TaskManager {
     }
 
     removeEventListeners() {
-        console.log('[TaskManager] Removing event listeners');
         if (this.handleSubmit) {
             this.taskForm.removeEventListener('submit', this.handleSubmit);
         }
@@ -153,7 +145,6 @@ class TaskManager {
             this.loadMoreBtn.style.display = this.hasMoreTasks && this.tasks.length > 0 ? 'block' : 'none';
         }
 
-        console.log('[TaskManager] Tasks rendered:', this.tasks.length);
     }
 
     // Template de la tarea en HTML (a falta de component)
@@ -191,7 +182,6 @@ class TaskManager {
         taskElement.addEventListener('click', (e) => {
             // No abrir el modal si se hizo clic en el botón de eliminar
             if (!e.target.classList.contains('delete-task') && !e.target.closest('.delete-task')) {
-                console.log('[TaskManager] Task item clicked for edit:', taskElement.dataset.id);
                 this.showTaskModal(taskElement);
             }
         });
@@ -203,7 +193,6 @@ class TaskManager {
                 e.stopPropagation();
                 e.preventDefault();
                 const taskId = taskElement.dataset.id;
-                console.log('[TaskManager] Delete button clicked for task:', taskId);
                 if (taskId) {
                     const deleted = await this.deleteTask(taskId);
                     if (deleted) {
@@ -218,7 +207,6 @@ class TaskManager {
     }
 
     showTaskModal(taskElement = null) {
-        console.log('[TaskManager] Showing modal');
         
         const modalTitle = document.getElementById('modalTitle');
         const taskTitle = document.getElementById('taskTitle');
@@ -227,11 +215,8 @@ class TaskManager {
 
         if (taskElement) {
             modalTitle.textContent = 'Edit Task';
-            console.log('[TaskManager] Task element dataset:', taskElement.dataset);
-            console.log('[TaskManager] Tasks array:', this.tasks);
             const taskId = parseInt(taskElement.dataset.id);
             const task = this.tasks.find(t => t.id === taskId);
-            console.log('[TaskManager] Found task:', task);
             if (task) {
                 // Guardar el ID en el formulario
                 this.taskForm.dataset.taskId = task.id;
@@ -258,7 +243,6 @@ class TaskManager {
     }
 
     hideTaskModal() {
-        console.log('[TaskManager] Hiding modal');
         this.taskModal.classList.add('hidden');
         this.taskForm.reset();
         delete this.taskForm.dataset.taskId;
@@ -267,9 +251,6 @@ class TaskManager {
 
     async handleTaskSubmit(event) {
         event.preventDefault();
-        
-        console.log('[TaskManager] Submit handler called');
-        
         this.submitCount++;
         
         if (this.submitCount > 1) {
@@ -278,7 +259,6 @@ class TaskManager {
         }
 
         const taskId = this.taskForm.dataset.taskId;
-        console.log('[TaskManager] Task form dataset:', this.taskForm.dataset);
         const isEditing = !!taskId;
         
         try {
@@ -298,7 +278,7 @@ class TaskManager {
             if (status) {
                 formData.status = status;
             }
-            
+
             if (assignedToValue) {
                 const assignedTo = parseInt(assignedToValue);
                 if (isNaN(assignedTo)) {
@@ -310,8 +290,6 @@ class TaskManager {
             const url = taskId 
                 ? `${this.baseUrl}/tasks/${taskId}`
                 : `${this.baseUrl}/tasks`;
-
-            console.log('[TaskManager] Sending request to:', url, formData);
             
             const response = await fetch(url, {
                 method: taskId ? 'PUT' : 'POST',
@@ -327,14 +305,11 @@ class TaskManager {
             }
 
             const savedTask = await response.json();
-            console.log('[TaskManager] Saved task:', savedTask);
-            
+
             if (taskId) {
                 // Actualizar tarea existente
                 const taskIdInt = parseInt(taskId);
-                console.log('[TaskManager] Updating task with ID:', taskIdInt);
                 const index = this.tasks.findIndex(t => t.id === taskIdInt);
-                console.log('[TaskManager] Found task at index:', index);
                 if (index !== -1) {
                     this.tasks[index] = savedTask;
                 }
@@ -343,7 +318,6 @@ class TaskManager {
                 this.tasks.unshift(savedTask);
             }
 
-            console.log('[TaskManager] Tasks after update:', this.tasks);
             this.hideTaskModal();
             this.renderTasks();
         } catch (error) {
@@ -357,7 +331,6 @@ class TaskManager {
             return false;
         }
 
-        console.log('[TaskManager] Deleting task:', taskId);
         try {
             const response = await fetch(`${this.baseUrl}/tasks/${taskId}`, {
                 method: 'DELETE',
@@ -373,8 +346,7 @@ class TaskManager {
             
             // Actualizar la vista
             this.renderTasks();
-            
-            console.log('[TaskManager] Task deleted successfully');
+
             return true;
         } catch (error) {
             console.error('[TaskManager] Error deleting task:', error);
