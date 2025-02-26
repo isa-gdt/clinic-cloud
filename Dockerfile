@@ -6,14 +6,13 @@ RUN apk update \
         git \
         icu-dev \
         libzip-dev \
-        postgresql-dev \
         zip \
         autoconf \
         make \
         g++ \
         gcc \
         shadow \
-    && docker-php-ext-install intl opcache pdo pdo_pgsql \
+    && docker-php-ext-install intl opcache pdo \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
     && docker-php-ext-configure zip \
