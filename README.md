@@ -139,7 +139,7 @@ Following a Hexagonal Architecture organized by Bounded Contexts and Domain-Driv
 │           └── Transformer
 ```
 #### Error Handling
-Errors are handled globally in the bootstrap/app.php file. It listen for exceptions and return customized responses for each type of error, maintaining a consistent format for all error responses.
+Errors are handled globally in the `bootstrap/app.php` file. It listens for exceptions and return customized responses for each type of error, maintaining a consistent format for all error responses.
 
 #### Routes
 The backend exposes several RESTful API endpoints that can be used for managing tasks and users. The routes are protected by JWT authentication, ensuring that only authenticated users can access them.
