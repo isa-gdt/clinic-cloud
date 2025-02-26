@@ -26,7 +26,6 @@ seed:
 db-dump:
 	@$(DOCKER_COMPOSE) exec db mysql -u laravel -psecret $laravel < database/database.sql
 
-
 help:
 	@echo "Available commands:"
 	@echo "  make up           		- Start the containers with Docker"
@@ -34,6 +33,7 @@ help:
 	@echo "  make build        		- Build the Docker image"
 	@echo "  make install      		- Install dependencies with Composer"
 	@echo "  make tests        		- Run tests"
-	@echo "  make migrate        	- Run laravel migrations and seed database"
+	@echo "  make migrate        	- Run laravel migrations database"
+	@echo "  make seed              - Seed the database"
 	@echo "  make db-dump           - Run database dump"
 
