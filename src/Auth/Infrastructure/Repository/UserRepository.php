@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Src\Auth\Infrastructure\Repository;
 
-use Src\Auth\Domain\Repository\AuthenticationRepositoryInterface;
+use Src\Auth\Domain\Repository\UserRepositoryInterface;
 use Src\Auth\Domain\User;
 use Src\Auth\Infrastructure\Model\User as UserModel;
 
-class AuthenticationRepository implements AuthenticationRepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
     public function getUserById(int $id): ?User
     {

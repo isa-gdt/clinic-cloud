@@ -7,7 +7,7 @@ namespace Tests\ToDoList\Application\UseCase;
 use Illuminate\Support\Facades\Validator;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Src\Auth\Domain\Repository\AuthenticationRepositoryInterface;
+use Src\Auth\Domain\Repository\UserRepositoryInterface;
 use Src\Auth\Domain\User;
 use Src\ToDoList\Application\InputDTO\UpdateTaskInputDTO;
 use Src\ToDoList\Application\UseCase\UpdateTaskByIdUseCase;
@@ -29,9 +29,9 @@ class UpdateTaskByIdUseCaseTest extends TestCase
             ->getMock();
     }
 
-    private function mockAuthRepositoryInterface (User $result): AuthenticationRepositoryInterface
+    private function mockAuthRepositoryInterface (User $result): UserRepositoryInterface
     {
-        return Mockery::mock(AuthenticationRepositoryInterface::class)
+        return Mockery::mock(UserRepositoryInterface::class)
             ->shouldReceive('getUserById')
             ->once()
             ->andReturn($result)
@@ -78,9 +78,9 @@ class UpdateTaskByIdUseCaseTest extends TestCase
             ->getMock();
     }
 
-    private function mockAuthRepositoryInterfaceReturnsNull(): AuthenticationRepositoryInterface
+    private function mockAuthRepositoryInterfaceReturnsNull(): UserRepositoryInterface
     {
-        return Mockery::mock(AuthenticationRepositoryInterface::class)
+        return Mockery::mock(UserRepositoryInterface::class)
             ->shouldReceive('getUserById')
             ->andReturn(null)
             ->getMock();

@@ -11,6 +11,8 @@ use Src\ToDoList\Application\UseCase\DeleteTaskByIdUseCase;
 
 class DeleteTaskByIdController
 {
+    private const STATUS = 204;
+
     public function __construct(private readonly DeleteTaskByIdUseCase $deleteTaskUseCase)
     {
     }
@@ -25,6 +27,6 @@ class DeleteTaskByIdController
 
         $this->deleteTaskUseCase->execute($dto);
 
-        return new JsonResponse(status: 204);
+        return new JsonResponse(status: self::STATUS);
     }
 }

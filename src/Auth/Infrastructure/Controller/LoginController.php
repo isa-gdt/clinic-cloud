@@ -11,6 +11,8 @@ use Src\Auth\Application\UseCase\LoginUseCase;
 
 class LoginController
 {
+    private const STATUS = 200;
+
     public function __construct(
         private readonly LoginUseCase $loginUseCase
     )
@@ -28,6 +30,6 @@ class LoginController
 
         $token = $this->loginUseCase->execute($dto);
 
-        return response()->json([$token], 200);
+        return response()->json([$token], self::STATUS);
     }
 }

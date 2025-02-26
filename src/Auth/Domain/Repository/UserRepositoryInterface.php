@@ -6,7 +6,7 @@ namespace Src\Auth\Domain\Repository;
 
 use Src\Auth\Domain\User;
 
-interface AuthenticationRepositoryInterface
+interface UserRepositoryInterface
 {
     public function getUserById(int $id): ?User;
 }

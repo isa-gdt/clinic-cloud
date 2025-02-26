@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Tests\Auth\Infrastructure\Repository;
 
 use Src\Auth\Domain\User;
-use Src\Auth\Infrastructure\Repository\AuthenticationRepository;
+use Src\Auth\Infrastructure\Repository\UserRepository;
 use Tests\TestCase;
 
-class AuthenticationRepositoryTest extends TestCase
+class UserRepositoryTest extends TestCase
 {
     public function testGetUserById(): void
     {
         // Given
-        $repository = new AuthenticationRepository();
+        $repository = new UserRepository();
 
         //When
         $user = $repository->getUserById(99);
@@ -32,7 +32,7 @@ class AuthenticationRepositoryTest extends TestCase
     public function testGetUserByIdReturnsNull(): void
     {
         //Given
-        $repository = new AuthenticationRepository();
+        $repository = new UserRepository();
 
         //When
         $user = $repository->getUserById(0);

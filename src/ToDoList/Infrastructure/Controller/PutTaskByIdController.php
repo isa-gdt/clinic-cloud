@@ -12,6 +12,8 @@ use Src\ToDoList\Infrastructure\Transformer\TaskTransformer;
 
 class PutTaskByIdController
 {
+    private const STATUS = 201;
+
     public function __construct(
         private readonly UpdateTaskByIdUseCase $updateTaskByIdUseCase,
         private readonly TaskTransformer $taskTransformer)
@@ -31,7 +33,9 @@ class PutTaskByIdController
 
         $result = $this->updateTaskByIdUseCase->execute($dto);
 
-        $response = $this->taskTransformer->transform($result);
-        return new JsonResponse($response, 201);
+        return new JsonResponse(
+            $this->taskTransformer->transform($result),
+            self::STATUS
+        );
     }
 }

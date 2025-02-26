@@ -12,6 +12,8 @@ use Src\ToDoList\Infrastructure\Transformer\TaskTransformer;
 
 class PostCreateTaskController
 {
+    private const STATUS = 201;
+
     public function __construct(
         private readonly CreateTaskUseCase $postCreateTaskUseCase,
         private readonly TaskTransformer $taskTransformer
@@ -33,7 +35,9 @@ class PostCreateTaskController
 
         $result = $this->postCreateTaskUseCase->execute($dto);
 
-        $response = $this->taskTransformer->transform($result);
-        return new JsonResponse($response, 201);
+        return new JsonResponse(
+            $this->taskTransformer->transform($result),
+            self::STATUS
+        );
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use Src\Auth\Domain\Repository\AuthenticationRepositoryInterface;
+use Src\Auth\Domain\Repository\UserRepositoryInterface;
 use Src\Auth\Domain\User;
 use Src\Common\Application\Exception\ValidationException;
 use Src\ToDoList\Application\InputDTO\CreateTaskInputDTO;
@@ -20,9 +20,9 @@ use Tests\ToDoList\Domain\MotherObject\TaskMotherObject;
 
 class CreateTaskUseCaseTest extends TestCase
 {
-    private function mockAuthenticationRepositoryInterface(User $result): AuthenticationRepositoryInterface
+    private function mockAuthenticationRepositoryInterface(User $result): UserRepositoryInterface
     {
-        return Mockery::mock(AuthenticationRepositoryInterface::class)
+        return Mockery::mock(UserRepositoryInterface::class)
             ->shouldReceive('getUserById')
             ->once()
             ->andReturn($result)
