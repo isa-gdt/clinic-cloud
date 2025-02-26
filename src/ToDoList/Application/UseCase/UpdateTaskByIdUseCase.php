@@ -34,8 +34,8 @@ class UpdateTaskByIdUseCase
 
         $dataFromDto = [
             'assigned_to' => $assignedTo?->id(),
-            'text' => $updateTaskInputDTO->text() ?? null,
-            'status' => $updateTaskInputDTO->status() ?? null,
+            'text' => $updateTaskInputDTO->text(),
+            'status' => $updateTaskInputDTO->status(),
         ];
 
         $dataToUpdate = array_filter($dataFromDto, function ($value) {
@@ -43,6 +43,5 @@ class UpdateTaskByIdUseCase
         });
 
         return $this->taskRepository->updateById($task->id(), $dataToUpdate);
-
     }
 }

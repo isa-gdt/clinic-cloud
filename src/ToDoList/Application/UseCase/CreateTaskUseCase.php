@@ -6,17 +6,15 @@ namespace Src\ToDoList\Application\UseCase;
 
 use Src\Auth\Domain\Repository\AuthenticationRepositoryInterface;
 use Src\Auth\Domain\User;
-use Src\Auth\Infrastructure\Repository\AuthenticationRepository;
 use Src\ToDoList\Application\InputDTO\CreateTaskInputDTO;
 use Src\ToDoList\Domain\Repository\TaskRepositoryInterface;
 use Src\ToDoList\Domain\Task;
-use Src\ToDoList\Infrastructure\Repository\TaskRepository;
 
 class CreateTaskUseCase
 {
     public function __construct(
         private readonly AuthenticationRepositoryInterface $authenticationRepository,
-        private readonly TaskRepositoryInterface           $taskRepository)
+        private readonly TaskRepositoryInterface $taskRepository)
     {
     }
 

@@ -14,16 +14,4 @@ class Collection
     {
         return $this->collection;
     }
-
-    /*public function toArray(): array
-    {
-        return array_map(function ($collection) {
-            return $collection->toArray();
-        }, $this->collection);
-    }
-
-    public function map(callable $callback): static
-    {
-        return new static(array_map($callback, $this->collection));
-    }*/
 }

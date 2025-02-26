@@ -40,7 +40,6 @@ class TaskCollection extends Collection
                 updatedAt: $task['updated_at'],
             );
         }
-
         return new self($tasks);
     }
 }

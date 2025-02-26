@@ -6,7 +6,6 @@ namespace Src\ToDoList\Infrastructure\Controller;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Src\Auth\Domain\User;
 use Src\ToDoList\Application\InputDTO\CreateTaskInputDTO;
 use Src\ToDoList\Application\UseCase\CreateTaskUseCase;
 use Src\ToDoList\Infrastructure\Transformer\TaskTransformer;
@@ -15,7 +14,7 @@ class PostCreateTaskController
 {
     public function __construct(
         private readonly CreateTaskUseCase $postCreateTaskUseCase,
-        private readonly TaskTransformer   $taskTransformer
+        private readonly TaskTransformer $taskTransformer
     )
     {
     }
