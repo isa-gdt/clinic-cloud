@@ -109,38 +109,38 @@ class TaskRepository implements TaskRepositoryInterface
     public function updateById(int $taskId, array $data): Task
     {
         try {
-            $task = TaskModel::with(['createdBy', 'assignedTo'])->find($taskId);
-            $task->update($data);
-            $task->refresh();
+            $result = tap(TaskModel::where('id', $taskId))
+                ->update($data)
+                ->first();
         } catch (\Exception $e) {
             throw new PersistenceException($e->getMessage());
         }
 
         $assignedTo = null;
-        if ($task->assignedTo !== null) {
+        if ($result->assignedTo !== null) {
             $assignedTo = new User(
-                id: $task->assignedTo->id,
-                name: $task->assignedTo->name,
-                email: $task->assignedTo->email,
-                password: $task->assignedTo->password
+                id: $result->assignedTo->id,
+                name: $result->assignedTo->name,
+                email: $result->assignedTo->email,
+                password: $result->assignedTo->password
             );
         }
 
         $createdBy = new User(
-            id: $task->createdBy->id,
-            name: $task->createdBy->name,
-            email: $task->createdBy->email,
-            password: $task->createdBy->password
+            id: $result->createdBy->id,
+            name: $result->createdBy->name,
+            email: $result->createdBy->email,
+            password: $result->createdBy->password
         );
 
         return new Task(
-            id: $task->id,
+            id: $result->id,
             createdBy: $createdBy,
             assignedTo: $assignedTo,
-            text: $task->text,
-            status: $task->status,
-            createdAt: $task->created_at->toDateTimeString(),
-            updatedAt: $task->updated_at->toDateTimeString(),
+            text: $result->text,
+            status: $result->status,
+            createdAt: $result->created_at->toDateTimeString(),
+            updatedAt: $result->updated_at->toDateTimeString(),
         );
     }
 }
