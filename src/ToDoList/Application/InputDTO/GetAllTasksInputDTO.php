@@ -9,7 +9,7 @@ use Src\Common\Application\Exception\ValidationException;
 
 class GetAllTasksInputDTO
 {
-    private const LIMIT = 10;
+    private const LIMIT = 4;
     private const PAGE = 1;
     private int $limit;
     private int $page;
