@@ -185,14 +185,16 @@ After logging in, the user is directed to the dashboard where they can view and 
 
 At the top of the dashboard, there is a header showing the logged-in user's email address and a logout button.
 - Task Interaction:
-  Clicking on a task opens a modal where you can edit the task's details.
+  
+Clicking on a task opens a modal where you can edit the task's details.
+    When editing a task, to edit the `assigned_to` field, you enter an ID (this could be improved by selecting the user by their name from a list of available users). If the entered ID does not exist, that field will not be modified.
 
 Clicking the (+) button opens a modal to create a new task.
 
 Each task has a trash icon buttom that allows you to delete the task.
 
 - Pagination:
-  At the bottom of the task list, there is a "Load more tasks" button.
+At the bottom of the task list, there is a "Load more tasks" button.
 
 Clicking this button loads the next page of tasks.
 If there are no more tasks to load, the "Load more tasks" button is hidden.
