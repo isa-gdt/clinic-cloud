@@ -25,6 +25,25 @@ Start Docker containers
 
 The database script is located in the `database.sql` file within the `database/` directory at the root of the project. Use this script to set up the database schema and seed initial data.
 
+### Database Setup
+
+To set up the database, you need to run migrations or load the database dump.
+
+#### Run Migrations
+To run Laravel migrations, use the following command:
+
+```bash
+  make migrate
+```
+
+#### Run database dump
+
+
+```bash
+   make db-dump
+```
+
+
 The database has two main entities: tasks and users.
 
 #### tasks Entity

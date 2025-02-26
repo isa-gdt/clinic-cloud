@@ -18,6 +18,13 @@ install:
 tests:
 	$(DOCKER_EXEC) ./vendor/bin/phpunit ${args}
 
+migrations:
+	$(DOCKER_EXEC) artisan db:seed --class=UserSeeder
+
+db-dump:
+	@$(DOCKER_COMPOSE) exec db mysql -u laravel -psecret $laravel < database/database.sql
+
+
 help:
 	@echo "Available commands:"
 	@echo "  make up           		- Start the containers with Docker"
@@ -25,4 +32,6 @@ help:
 	@echo "  make build        		- Build the Docker image"
 	@echo "  make install      		- Install dependencies with Composer"
 	@echo "  make tests        		- Run tests"
+	@echo "  make migrations        - Run laravel migrations and seed database"
+	@echo "  make db-dump           - Run database dump"
 
