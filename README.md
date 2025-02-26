@@ -39,20 +39,13 @@ The database script is located in the `database.sql` file within the `database/`
 
 ### Database Setup
 
-To set up the database, you need to run migrations or load the database dump.
+To set up the database, you need to run migrations or load the `database` dump.
 
 #### Run Migrations
 To run Laravel migrations, use the following command:
 
 ```bash
   make migrate
-```
-
-#### Run database dump
-
-
-```bash
-   make db-dump
 ```
 
 

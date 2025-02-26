@@ -23,9 +23,6 @@ migrate:
 seed:
 	$(DOCKER_EXEC) php artisan db:seed --class=UserSeeder
 
-db-dump:
-	@$(DOCKER_COMPOSE) exec db mysql -u laravel -psecret $laravel < database/database.sql
-
 help:
 	@echo "Available commands:"
 	@echo "  make up           		- Start the containers with Docker"
