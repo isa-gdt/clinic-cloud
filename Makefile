@@ -1,7 +1,6 @@
 DOCKER_COMPOSE = docker compose
-DOCKER_EXEC = docker exec -it laravel-api php
+DOCKER_EXEC = docker exec -it laravel-api
 .PHONY: tests
-.PHONY: last-tweets
 
 up:
 	@$(DOCKER_COMPOSE) up -d
@@ -16,10 +15,10 @@ install:
 	@$(DOCKER_EXEC) composer install
 
 tests:
-	$(DOCKER_EXEC) ./vendor/bin/phpunit ${args}
+	$(DOCKER_EXEC) php ./vendor/bin/phpunit ${args}
 
-migrations:
-	$(DOCKER_EXEC) artisan db:seed --class=UserSeeder
+migrate:
+	$(DOCKER_EXEC) php artisan db:seed --class=UserSeeder
 
 db-dump:
 	@$(DOCKER_COMPOSE) exec db mysql -u laravel -psecret $laravel < database/database.sql
@@ -32,6 +31,6 @@ help:
 	@echo "  make build        		- Build the Docker image"
 	@echo "  make install      		- Install dependencies with Composer"
 	@echo "  make tests        		- Run tests"
-	@echo "  make migrations        - Run laravel migrations and seed database"
+	@echo "  make migrate        - Run laravel migrations and seed database"
 	@echo "  make db-dump           - Run database dump"
 
