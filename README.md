@@ -178,7 +178,7 @@ Each task has a trash icon buttom that allows you to delete the task.
 
 - Pagination:
 
-  At the bottom of the task list, there is a "Load more tasks" button.
+At the bottom of the task list, there is a "Load more tasks" button.
 
 Clicking this button loads the next page of tasks.
 If there are no more tasks to load, the "Load more tasks" button is hidden.
