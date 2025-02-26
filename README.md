@@ -48,6 +48,10 @@ To run Laravel migrations, use the following command:
   make migrate
 ```
 
+```bash
+  make seed
+```
+
 
 The database has two main entities: tasks and users.
 
