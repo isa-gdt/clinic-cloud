@@ -21,6 +21,11 @@ Start Docker containers
   make up
 ```
 
+Install de dependencies
+```bash
+  make install
+```
+
 ## Database
 
 The database script is located in the `database.sql` file within the `database/` directory at the root of the project. Use this script to set up the database schema and seed initial data.
@@ -30,6 +35,7 @@ The database script is located in the `database.sql` file within the `database/`
 To set up the database, you need to run migrations or load the database dump.
 
 #### Run Migrations
+To run Laravel migrations, use the following command:
 
 ```bash
   make migrate
@@ -139,7 +145,7 @@ Following a Hexagonal Architecture organized by Bounded Contexts and Domain-Driv
 │           └── Transformer
 ```
 #### Error Handling
-Errors are handled globally in the `bootstrap/app.php` file. It listens for exceptions and return customized responses for each type of error, maintaining a consistent format for all error responses.
+Errors are handled globally in the bootstrap/app.php file. It listen for exceptions and return customized responses for each type of error, maintaining a consistent format for all error responses.
 
 #### Routes
 The backend exposes several RESTful API endpoints that can be used for managing tasks and users. The routes are protected by JWT authentication, ensuring that only authenticated users can access them.
@@ -169,16 +175,14 @@ After logging in, the user is directed to the dashboard where they can view and 
 
 At the top of the dashboard, there is a header showing the logged-in user's email address and a logout button.
 - Task Interaction:
-
-Clicking on a task opens a modal where you can edit the task's details.
+  Clicking on a task opens a modal where you can edit the task's details.
 
 Clicking the (+) button opens a modal to create a new task.
 
 Each task has a trash icon buttom that allows you to delete the task.
 
 - Pagination:
-
-At the bottom of the task list, there is a "Load more tasks" button.
+  At the bottom of the task list, there is a "Load more tasks" button.
 
 Clicking this button loads the next page of tasks.
 If there are no more tasks to load, the "Load more tasks" button is hidden.

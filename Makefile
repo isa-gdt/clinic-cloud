@@ -18,6 +18,9 @@ tests:
 	$(DOCKER_EXEC) php ./vendor/bin/phpunit ${args}
 
 migrate:
+	$(DOCKER_EXEC) php artisan migrate
+
+seed:
 	$(DOCKER_EXEC) php artisan db:seed --class=UserSeeder
 
 db-dump:
@@ -31,6 +34,6 @@ help:
 	@echo "  make build        		- Build the Docker image"
 	@echo "  make install      		- Install dependencies with Composer"
 	@echo "  make tests        		- Run tests"
-	@echo "  make migrate        - Run laravel migrations and seed database"
+	@echo "  make migrate        	- Run laravel migrations and seed database"
 	@echo "  make db-dump           - Run database dump"
 
